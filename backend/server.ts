@@ -1,3 +1,4 @@
+require('express-async-errors')
 import * as express from 'express'
 import { PORT } from "./utils/config";
 import projectRoutes from './routes/projectRoutes'
