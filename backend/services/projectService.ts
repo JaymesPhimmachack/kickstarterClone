@@ -1,5 +1,6 @@
 import { checkIsValidObjectId } from "../database/db"
 import ProjectModel from "../models/projectModel"
+import { sanitizeProject } from "../sanitizers/projectSanitizer"
 import { IProjectSchema } from "../schema/projectSchema"
 import { ProjectType } from "../types/projectTypes"
 
@@ -10,17 +11,18 @@ export async function getProjects(): Promise<ProjectType[]> {
 
 		return projects
 	} catch (error) {
-		throw new Error('Error finding projects')
+		throw new Error(`Failed to find projects ${error}`)
 	}
 }
 
 export async function createProject(project: ProjectType): Promise<ProjectType> {
+	const sanitizedProject = sanitizeProject(project)
 	try {
-		const newProject = await ProjectModel.create(project)
+		const newProject = await ProjectModel.create(sanitizedProject)
 		if (!newProject) throw new Error('Project not created')
 		return newProject
 	} catch (error) {
-		throw new Error('Error creating project')
+		throw new Error(`Failed to create project ${error}`)
 	}
 	
 }
@@ -34,21 +36,22 @@ export async function getProjectById (projectId: string): Promise<IProjectSchema
 	
 		return project
 	} catch (error) {
-		throw new Error('Error finding project')
+		throw new Error(`Failed to find project ${error}`)
 	}
 }
 
 
 export async function updateProject(projectId: string, project: ProjectType): Promise<IProjectSchema> {
 	checkIsValidObjectId(projectId)
+	const sanitizedProject = sanitizeProject(project)
 	try {
-		const updatedProject = await ProjectModel.findByIdAndUpdate(projectId, project, { new: true })
+		const updatedProject = await ProjectModel.findByIdAndUpdate(projectId, sanitizedProject, { new: true })
 
 	if (!updatedProject) throw new Error('Project not found')
 
 	return updatedProject
 	} catch (error) {
-		throw new Error('Error updating project')
+		throw new Error(`Failed to update project ${error}`)
 	}
 }
 
@@ -61,6 +64,6 @@ export async function deleteProject(projectId: string): Promise<void> {
 	
 		return;
 	} catch (error) {
-		throw new Error('Error deleting project')
+		throw new Error(`Failed to delete project ${error}`)
 	}
 } 

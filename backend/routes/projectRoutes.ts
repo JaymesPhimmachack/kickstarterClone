@@ -1,6 +1,6 @@
-import { createProjectHandler, deleteProjectHandler, getProjectHandler, getProjectsHandler, updateProjectHandler } from "../controllers/projectControllers"
+import { createProjectHandler, deleteProjectHandler, getProjectHandler, getProjectsHandler, updateProjectHandler } from "../controllers/projectController"
 
-const express = require('express')
+import express from 'express'
 const router = express.Router()
 
 router.route('/')
