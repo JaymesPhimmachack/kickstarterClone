@@ -1,15 +1,15 @@
-import { createProject, deleteProject, getProject, getProjects, updateProject } from "../controllers/projectControllers"
+import { createProjectHandler, deleteProjectHandler, getProjectHandler, getProjectsHandler, updateProjectHandler } from "../controllers/projectControllers"
 
 const express = require('express')
 const router = express.Router()
 
 router.route('/')
-.get(getProjects)
-.post(createProject)
+.get(getProjectsHandler)
+.post(createProjectHandler)
 
 router.route('/:id')
-.get(getProject)
-.put(updateProject)
-.delete(deleteProject)
+.get(getProjectHandler)
+.put(updateProjectHandler)
+.delete(deleteProjectHandler)
 
 export default router
