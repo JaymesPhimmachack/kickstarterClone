@@ -1,17 +1,18 @@
 import { createUserHandler, deleteUserHandler, getUserHandler, getUsersHandler, loginUserHandler, updateUserHandler } from "../controllers/userController"
 
 import express from 'express'
+import { protect } from "../models/authMiddleware"
 const router = express.Router()
 
 router.route('/')
-.get(getUsersHandler)
+.get(protect, getUsersHandler)
 .post(createUserHandler)
 
 router.route('/login').post(loginUserHandler)
 
 router.route('/:id')
 .get(getUserHandler)
-.put(updateUserHandler)
-.delete(deleteUserHandler)
+.put(protect, updateUserHandler)
+.delete(protect, deleteUserHandler)
 
 export default router

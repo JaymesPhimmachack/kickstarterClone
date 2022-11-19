@@ -1,7 +1,6 @@
 import { emailRegEx } from "../schema/userSchema";
 import { UserType } from "../types/userTypes";
 import HttpException from "../utils/httpException";
-import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 
 export async function sanitizeUser(user: UserType): Promise<UserType> {

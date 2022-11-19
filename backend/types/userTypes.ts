@@ -1,3 +1,5 @@
+import { UserPayload } from "../services/tokenService";
+
 export interface UserType {
 	username: string;
 	email: string;
@@ -6,4 +8,8 @@ export interface UserType {
 	isSuperAdmin: boolean;
 	resetPasswordToken: string;
 	resetPasswordExpires: Date;
+}
+
+export interface UserReturnType extends UserPayload {
+ token: string;
 }
