@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { createUser, deleteUser, getUserById, getUsers, updateUser } from "../services/userService"
+import { createUser, deleteUser, getUserById, getUsers, loginUser, updateUser } from "../services/userService"
 
 //@desc Get all users
 //@route GET /api/users
@@ -7,6 +7,14 @@ import { createUser, deleteUser, getUserById, getUsers, updateUser } from "../se
 export const getUsersHandler = async (req: Request, res: Response) => {
 	const users = await getUsers()
 	res.status(200).json(users)
+}
+
+//@desc Create a new user
+//@route POST /api/users
+//@access Public
+export const loginUserHandler = async (req: Request, res: Response) => {
+	const user = await loginUser(req.body.email, req.body.password)
+	res.status(200).json(user)
 }
 
 //@desc Create a new user
